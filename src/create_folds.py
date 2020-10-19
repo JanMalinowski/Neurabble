@@ -7,7 +7,7 @@ if __name__ == "__main__":
     train = pd.read_pickle("input/train.pkl")
     train["kfold"] = -1
 
-    kf = model_selection.KFold(n_splits=2, random_state=42)
+    kf = model_selection.KFold(n_splits=3, random_state=42)
 
     for (fold, (train_idx, val_idx)) in enumerate(kf.split(X=train)):
         print(len(train_idx), len(val_idx))
