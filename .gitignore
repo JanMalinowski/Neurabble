@@ -24,3 +24,6 @@ build/
 develop-eggs/
 dist/
 downloads/
+
+# Gitignore files
+*.swp
