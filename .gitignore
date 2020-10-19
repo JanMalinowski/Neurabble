@@ -7,8 +7,8 @@ pythonenv3.8/
 *.jpg
 *.png
 
-# Jupyter Notebook Files
-*.ipynb_checkpoints
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
 
 # vscode
 .vscode/
