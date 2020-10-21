@@ -1,7 +1,11 @@
 import pandas as pd
+import os
 
 if __name__ == "__main__":
-    data = pd.read_pickle("input/dataset.pkl")
+    data_dir = os.environ.get("DATA_DIRECTORY")
+    data_file = os.environ.get("DATA_FILE")
+    print(data_dir)
+    data = pd.read_pickle(data_dir + data_file)
 
     # Shuffling the data
 
@@ -10,5 +14,5 @@ if __name__ == "__main__":
     print(train_idx)
     train = data.loc[0:train_idx, :]
     test = data.loc[train_idx:, :]
-    train.to_pickle("input/train.pkl")
-    test.to_pickle("input/test.pkl")
+    train.to_pickle(data_dir + "/train.pkl")
+    test.to_pickle(data_dir + "/test.pkl")

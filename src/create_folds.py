@@ -2,9 +2,11 @@
 # https://github.com/abhishekkrthakur/mlframework/blob/master/src/create_folds.py
 import pandas as pd
 from sklearn import model_selection
+import os
 
 if __name__ == "__main__":
-    train = pd.read_pickle("input/train.pkl")
+    data_dir = os.environ.get("DATA_DIRECTORY")
+    train = pd.read_pickle(data_dir + "/train.pkl")
     train["kfold"] = -1
 
     kf = model_selection.KFold(n_splits=3, random_state=42)
@@ -13,4 +15,4 @@ if __name__ == "__main__":
         print(len(train_idx), len(val_idx))
         train.loc[val_idx, "kfold"] = fold
 
-    train.to_pickle("input/train_folds.pkl")
+    train.to_pickle(data_dir + "/train_folds.pkl")

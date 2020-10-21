@@ -15,7 +15,7 @@ def two_list(lst1: List[str], lst2: List[str]) -> str:
     raise Exception("The lists don't have a common element")
 
 
-def create_dataset() -> pd.DataFrame:
+def create_dataset(data_path) -> pd.DataFrame:
     """
     This function takes a dataframe with columns:
     images: contains images' names
@@ -25,7 +25,7 @@ def create_dataset() -> pd.DataFrame:
     The function returns a dataframe containing all
     images' permutations with their common element
     """
-    df = pd.read_pickle("input/data.pkl")
+    df = pd.read_pickle(data_path)
     results = pd.DataFrame({"image1": [], "image2": [], "common_element": []})
     for index in df.index:
         image1 = df.loc[index, "images"]
