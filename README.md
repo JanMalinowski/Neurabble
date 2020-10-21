@@ -2,7 +2,7 @@
 A neural net that will finally help you to win in the dobble boardgame!
 
 In the ```notebooks/DobbleLabelling.ipynb``` you can see the data labelling process. To do that efficiently, I was using one of my
-previous projects [ImageInspector](https://github.com/JanMalinowski/image_inspector)
+previous projects [ImageInspector](https://github.com/JanMalinowski/image_inspector).
 
 Running ```sh create_data.sh``` will create two datasets. The first of them will be for multiclass classification of
 objects on the dobble cards.
