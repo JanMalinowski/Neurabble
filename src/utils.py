@@ -25,18 +25,18 @@ def create_dataset() -> pd.DataFrame:
     The function returns a dataframe containing all
     images' permutations with their common element
     """
-    df = pd.read_pickle("input/df.pkl")
+    df = pd.read_pickle("input/data.pkl")
     results = pd.DataFrame({"image1": [], "image2": [], "common_element": []})
     for index in df.index:
         image1 = df.loc[index, "images"]
-        categories1 = df.loc[index, "categories"][0]
+        categories1 = df.loc[index, "categories"]
 
         if index == df.index.max():
             return results
 
         for index2 in df.loc[index + 1 :, :].index:
             image2 = df.loc[index2, "images"]
-            categories2 = df.loc[index2, "categories"][0]
+            categories2 = df.loc[index2, "categories"]
             common_cat = two_list(categories1, categories2)
             temp = {"image1": image1, "image2": image2, "common_element": common_cat}
             results = results.append(temp, ignore_index=True)
