@@ -7,6 +7,8 @@ import os
 if __name__ == "__main__":
     data_dir = os.environ.get("DATA_DIRECTORY")
     train = pd.read_pickle(data_dir + "/train.pkl")
+    train = train.sample(frac=1.0)
+    train = train.reset_index(drop=True)
     train["kfold"] = -1
 
     kf = model_selection.KFold(n_splits=3, random_state=42)

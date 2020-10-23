@@ -4,8 +4,3 @@ python -m src.create_images_pairs
 export DATA_FILE=dataset.pkl
 python -m src.train_test_split
 python -m src.create_folds
-
-export DATA_DIRECTORY=input/multiclass_classification/
-export DATA_FILE=data.pkl
-python -m src.train_test_split
-python -m src.create_folds

@@ -14,5 +14,7 @@ if __name__ == "__main__":
     print(train_idx)
     train = data.loc[0:train_idx, :]
     test = data.loc[train_idx:, :]
+    train = train.reset_index(drop=True)
+    test = test.reset_index(drop=True)
     train.to_pickle(data_dir + "/train.pkl")
     test.to_pickle(data_dir + "/test.pkl")
