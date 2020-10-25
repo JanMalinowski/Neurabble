@@ -11,7 +11,7 @@ if __name__ == "__main__":
     train = train.reset_index(drop=True)
     train["kfold"] = -1
 
-    kf = model_selection.KFold(n_splits=3, random_state=42)
+    kf = model_selection.KFold(n_splits=3)
 
     for (fold, (train_idx, val_idx)) in enumerate(kf.split(X=train)):
         print(len(train_idx), len(val_idx))
