@@ -7,8 +7,7 @@ previous projects [ImageInspector](https://github.com/JanMalinowski/image_inspec
 Running ```sh create_data.sh``` will create the datasets containing names of two images and their common element.
 
 TODO:
-- Take a pretrained neural network and train it to recognize the object present on both images.
-- Deploying an application with the neural network.
+- Deploy an a simple webapp with the applicaiton.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
