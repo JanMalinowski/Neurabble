@@ -11,6 +11,7 @@ import cv2
 import random
 import albumentations as A
 from .utils import read_img
+import torchvision
 
 
 class DobbleDataset(Dataset):
