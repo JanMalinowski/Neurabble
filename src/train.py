@@ -14,32 +14,43 @@ from .dataset import DobbleDataset
 from .engine import Engine
 from sklearn.metrics import accuracy_score
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     mean = (0.485, 0.456, 0.406)
     std = (0.229, 0.224, 0.225)
-    train_tfms = A.Compose([
-        A.Normalize(mean, std, max_pixel_value=255.0, always_apply=True),
-        A.Rotate(p=1.0),
-        A.Blur(p=0.15),
-        A.Resize(1024,1024, always_apply=True),
-    
-    ])
+    train_tfms = A.Compose(
+        [
+            A.Normalize(mean, std, max_pixel_value=255.0, always_apply=True),
+            A.Rotate(p=1.0),
+            A.Blur(p=0.15),
+            A.Resize(1024, 1024, always_apply=True),
+        ]
+    )
 
-    valid_tfms = A.Compose([
-        A.Normalize(mean, std, max_pixel_value=255.0, always_apply=True),
-        A.Resize(1024,1024, always_apply=True),
-        
-    ])
+    valid_tfms = A.Compose(
+        [
+            A.Normalize(mean, std, max_pixel_value=255.0, always_apply=True),
+            A.Resize(1024, 1024, always_apply=True),
+        ]
+    )
 
-    trainset = DobbleDataset(pkl_file='input/detecting_common_element/train.pkl', root_dir='input/images/', transform=train_tfms)
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=16,
-                                          shuffle=True, num_workers=4, pin_memory=True)
-    
-    validset = DobbleDataset(pkl_file='input/detecting_common_element/test.pkl', root_dir='input/images', transform=valid_tfms)
-    validloader = torch.utils.data.DataLoader(trainset, batch_size=32,
-                                          shuffle=True, num_workers=4, pin_memory=True)
+    trainset = DobbleDataset(
+        pkl_file="input/detecting_common_element/train_pairs.pkl",
+        root_dir="input/images/",
+        transform=train_tfms,
+    )
+    trainloader = torch.utils.data.DataLoader(
+        trainset, batch_size=16, shuffle=True, num_workers=4, pin_memory=True
+    )
 
+    validset = DobbleDataset(
+        pkl_file="input/detecting_common_element/test_pairs.pkl",
+        root_dir="input/images",
+        transform=valid_tfms,
+    )
+    validloader = torch.utils.data.DataLoader(
+        trainset, batch_size=32, shuffle=True, num_workers=4, pin_memory=True
+    )
 
     model = models.resnet18(pretrained=True)
     model.fc = nn.Linear(512, 57)
@@ -47,8 +58,8 @@ if __name__=="__main__":
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    train_loss = Engine.train(trainloader, model, optimizer,device)
-    torch.save(model.state_dict(), 'models/detecting_common_element/')
+    train_loss = Engine.train(trainloader, model, optimizer, device)
+    torch.save(model.state_dict(), "models/detecting_common_element/neurabble.pth")
 
     valid_preds, valid_targets = Engine.evaluate(validloader, model, device)
 
@@ -57,7 +68,3 @@ if __name__=="__main__":
         category_pred.append(valid_preds[i].index(max(valid_preds[i])))
 
     print("Validation set accuracy is: ", accuracy_score(category_pred, valid_targets))
-
-    
-
-

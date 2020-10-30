@@ -13,6 +13,9 @@ pythonenv3.8/
 # vscode
 .vscode/
 
+# directory with experiments
+temp/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

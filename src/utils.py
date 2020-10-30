@@ -49,6 +49,7 @@ def create_images_pairs(data_path) -> pd.DataFrame:
                 }
                 results = results.append(temp, ignore_index=True)
 
+
 def read_img(path):
     im = cv2.imread(path)
     im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)

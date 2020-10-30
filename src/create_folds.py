@@ -6,7 +6,7 @@ import os
 
 if __name__ == "__main__":
     data_dir = os.environ.get("DATA_DIRECTORY")
-    train = pd.read_pickle(data_dir + "/train.pkl")
+    train = pd.read_pickle(data_dir + "/train_pairs.pkl")
     train = train.sample(frac=1.0)
     train = train.reset_index(drop=True)
     train["kfold"] = -1
