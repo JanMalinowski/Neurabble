@@ -13,6 +13,9 @@ pythonenv3.8/
 # vscode
 .vscode/
 
+# Temporary notebooks
+notebooks/Untitled.ipynb
+
 # directory with experiments
 temp/
 
