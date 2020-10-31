@@ -19,13 +19,16 @@ if __name__ == "__main__":
     mean = (0.485, 0.456, 0.406)
     std = (0.229, 0.224, 0.225)
     train_tfms = A.Compose(
-        [
-            A.Normalize(mean, std, max_pixel_value=255.0, always_apply=True),
-            A.Rotate(p=1.0),
-            A.Blur(p=0.15),
+        [   A.Rotate(p=1.0),
+            A.Blur(p=0.2),
+            A.CoarseDropout(max_holes=20, max_height=70, max_width=70),
+            A.OpticalDistortion(),
+            A.GridDistortion(),
+            A.HueSaturationValue(),
             A.Resize(1024, 1024, always_apply=True),
         ]
     )
+
 
     valid_tfms = A.Compose(
         [
