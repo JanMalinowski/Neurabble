@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
     train_df = train_df.reset_index(drop=True)
     test_df = test_df.reset_index(drop=True)
-    categories = joblib.load('input/detecting_common_element/categories.pkl')
+    categories = joblib.load("input/detecting_common_element/categories.pkl")
 
     code = list(range(0, len(categories)))
     category_mapping = dict(zip(categories, code))

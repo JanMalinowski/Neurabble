@@ -21,12 +21,14 @@ if __name__ == "__main__":
     std = (0.229, 0.224, 0.225)
     # Training augmentations
     train_tfms = A.Compose(
-        [   A.Rotate(p=1.0),
+        [
+            A.Rotate(p=1.0),
             A.Blur(p=0.2),
             A.CoarseDropout(max_holes=20, max_height=70, max_width=70),
             A.OpticalDistortion(),
             A.GridDistortion(),
             A.HueSaturationValue(),
+            A.Normalize(mean, std, max_pixel_value=255.0, always_apply=True),
             A.Resize(1024, 1024, always_apply=True),
         ]
     )
@@ -58,7 +60,7 @@ if __name__ == "__main__":
     validloader = torch.utils.data.DataLoader(
         trainset, batch_size=32, shuffle=True, num_workers=4, pin_memory=True
     )
-    
+
     # Initializing the model
     model = models.resnet18(pretrained=True)
     # Since we need to classify 57 categories we change
@@ -66,16 +68,15 @@ if __name__ == "__main__":
     model.fc = nn.Linear(512, 57)
 
     # If the model already exists we load it in.
-    if os.path.isfile('models/detecting_common_element/neurabble.pth'):
-        model.load_state_dict(torch.load('models/detecting_common_element/neurabble.pth'))
+    if os.path.isfile("models/detecting_common_element/neurabble.pth"):
+        model.load_state_dict(
+            torch.load("models/detecting_common_element/neurabble.pth")
+        )
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer,
-        patience=3,
-        threshold=0.001,
-        mode="max"
+        optimizer, patience=3, threshold=0.001, mode="max"
     )
 
     es = EarlyStopping(patience=5, mode="max")
@@ -85,7 +86,7 @@ if __name__ == "__main__":
     #  be pretty big in order to be sure that the model can
     # fit properly
     for epoch in range(50):
-        # Engine is a utility class for training and evaluating the 
+        # Engine is a utility class for training and evaluating the
         # model
         train_loss = Engine.train(trainloader, model, optimizer, device)
 
@@ -103,8 +104,7 @@ if __name__ == "__main__":
         scheduler.step(accuracy)
         # Early stopping step
         es(accuracy, model, model_path=f"models/detecting_common_element/neurabble.pth")
-        
+
         if es.early_stop:
             print("Early stopping")
             break
-

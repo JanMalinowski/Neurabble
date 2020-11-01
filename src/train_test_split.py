@@ -12,7 +12,10 @@ if __name__ == "__main__":
     # by taking all pictures of 15 cards and putting them in the test data frame
     for i in range(15):
         temp = data_df.loc[
-            data_df["categories"].apply(lambda x: set(x) == set(data_df["categories"][i])), :
+            data_df["categories"].apply(
+                lambda x: set(x) == set(data_df["categories"][i])
+            ),
+            :,
         ]
         test_df = pd.concat([test_df, temp])
 
